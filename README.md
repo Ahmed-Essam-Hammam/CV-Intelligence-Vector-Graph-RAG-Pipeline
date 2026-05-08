@@ -41,16 +41,16 @@ The system solves a core HR and talent-intelligence problem: when you have multi
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                         Streamlit UI (app.py)                           │
+┌────────────────────────────────────────────────────────────────────────┐
+│                         Streamlit UI (app.py)                          │
 │   Upload CVs ──► Select Strategy ──► Build Indexes ──► Ask Questions   │
 └───────────────────────────────┬────────────────────────────────────────┘
                                 │
-              ┌─────────────────▼─────────────────┐
-              │         RAG Pipeline (rag_pipeline) │
+              ┌─────────────────▼───────────────────┐
+              │      RAG Pipeline (rag_pipeline)    │
               └──────┬──────────────────────┬───────┘
                      │                      │
-          ┌──────────▼─────────┐  ┌─────────▼──────────┐
+          ┌──────────▼─────────┐  ┌─────────▼───────────┐
           │   CHUNKING MODULE  │  │   GRAPH EXTRACTOR   │
           │  (chunking.py)     │  │  (graph_extractor)  │
           │                    │  │                     │
@@ -62,19 +62,19 @@ The system solves a core HR and talent-intelligence problem: when you have multi
           │  └──────────────┘  │  └─────────┬───────────┘
           └──────────┬─────────┘            │
                      │                      │
-          ┌──────────▼─────────┐  ┌─────────▼──────────┐
+          ┌──────────▼─────────┐  ┌─────────▼───────────┐
           │  VECTOR INDEXING   │  │   GRAPH INDEXING    │
           │                    │  │                     │
           │  Qdrant (dense)    │  │   Neo4j (graph DB)  │
           │  BM25 (sparse)     │  │   Nodes + Edges     │
           └──────────┬─────────┘  └─────────┬───────────┘
                      │                      │
-              ┌──────▼──────────────────────▼───────┐
+              ┌──────▼──────────────────────▼────────┐
               │            QUERY TIME                │
               │                                      │
               │  Leg A: Graph Retriever              │
               │    NL Query → LLM → Cypher → Neo4j   │
-              │    → structured graph facts           │
+              │    → structured graph facts          │
               │                                      │
               │  Leg B: Hybrid Vector Retriever      │
               │    Query → Dense (Qdrant) + Sparse   │
