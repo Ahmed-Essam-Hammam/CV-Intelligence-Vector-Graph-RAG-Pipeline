@@ -17,19 +17,3 @@ def get_embeddings():
         )
 
     return _embeddings_instance
-
-
-
-# from langchain_huggingface import HuggingFaceEmbeddings
-# from config import EMBEDDING_MODEL
-
-# _embeddings_instance = None
-
-# def get_embeddings():
-#     global _embeddings_instance
-#     if _embeddings_instance is None:
-#         _embeddings_instance = HuggingFaceEmbeddings(
-#             model_name=EMBEDDING_MODEL,
-#             encode_kwargs={"normalize_embeddings": True}
-#         )
-#     return _embeddings_instance
